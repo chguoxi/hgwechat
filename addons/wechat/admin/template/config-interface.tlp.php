@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>phpWeChat后台管理</title>
+    <title>微私募后台管理</title>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}admin/template/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}admin/template/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}statics/core.css"/>
@@ -19,7 +19,7 @@
 	<script src="{__PW_PATH__}statics/ZeroClipboard/ZeroClipboard.js" language="javascript"></script>
 
 </head>
-<body>
+<body>
     <div class="ifame-main-wrap">
         <div class="crumb-wrap">
             <div class="crumb-list"><i class="icon-font"></i><a href="{__PW_PATH__}{__ADMIN_FILE__}?file=index&action=main">管理首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">公众号配置</span></div>
@@ -41,7 +41,7 @@
                             <tbody>
                                 <tr class="formtr">
                                     <th class="formth" width="20%"><i class="require-red">*</i>URL：</th>
-                                    <td class="formtd">{format_url(U(MOD))}</td>
+                                    <td class="formtd">{format_url(U(MOD,'index',array('appid'=>$appid)))}</td>
                                 </tr>
                                 <tr class="formtr">
                                     <th class="formth"><i class="require-red">*</i>Token：</th>
@@ -63,6 +63,6 @@
                 </div>
         </div>
     </div>
-    <div class="statics-footer"> Powered by phpWeChat V{__PHPWECHAT_VERSION__}{__PHPWECHAT_RELEASE__} © , Processed in {php echo microtime()-$PW['time_start'];} second(s) , {MySql::$mQuery} queries <a href="#">至顶端↑</a></div>
+    <div class="statics-footer"> 微私募 V{__PHPWECHAT_VERSION__}{__PHPWECHAT_RELEASE__} © , Processed in {php echo microtime()-$PW['time_start'];} second(s) , {MySql::$mQuery} queries <a href="#">至顶端↑</a></div>
 </body>
 </html>

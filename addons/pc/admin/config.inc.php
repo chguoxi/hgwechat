@@ -13,7 +13,8 @@ use phpWeChat\Config;
 $mod='pc';
 $file=@return_edefualt(str_callback_w($_GET['file']),'config');
 $action=@return_edefualt(str_callback_w($_GET['action']),'base');
-
+$appid = $_SESSION['appid'] ? (int)$_SESSION['appid'] : 1;
+// var_dump($_SESSION);
 switch($action)
 {
 	case 'base':
@@ -21,7 +22,7 @@ switch($action)
 		{
 			$info['pc_site_url']=substr($info['pc_site_url'],-1)=='/'?$info['pc_site_url']:$info['pc_site_url'].'/';
 			$info['pc_site_url']=substr($info['pc_site_url'],0,7)=='http://'?$info['pc_site_url']:'http://'.$info['pc_site_url'];
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		
@@ -30,7 +31,7 @@ switch($action)
 	case 'template':
 		if(isset($dosubmit))
 		{
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		$previews=glob(substr(dirname(__FILE__),0,-5).'template/*/preview.gif');

@@ -619,42 +619,42 @@ class WeChatManage
 		return MySql::insert(DB_PRE.self::$mVideoMaterialTable,$info,true);
 	}
 
-	static public function imageMaterialJqueryList($page=1,$pagesize=16)
+	static public function imageMaterialJqueryList($page=1,$pagesize=16,$appid=1)
 	{
 		$page=max(1,intval($page));
 		$pagesize=intval($pagesize);
 
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mImageMaterialTable."` ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mImageMaterialTable."` WHERE `appid`={$appid} ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
 	}
 
-	static public function voiceMaterialJqueryList($page=1,$pagesize=16)
+	static public function voiceMaterialJqueryList($page=1,$pagesize=16,$appid=1)
 	{
 		$page=max(1,intval($page));
 		$pagesize=intval($pagesize);
 
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mVoiceMaterialTable."` ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mVoiceMaterialTable."` WHERE `appid`={$appid} ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
 	}
 
-	static public function videoMaterialJqueryList($page=1,$pagesize=16)
+	static public function videoMaterialJqueryList($page=1,$pagesize=16,$appid=1)
 	{
 		$page=max(1,intval($page));
 		$pagesize=intval($pagesize);
 
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mVideoMaterialTable."` ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mVideoMaterialTable."` WHERE `appid`={$appid} ORDER BY `created_at` DESC LIMIT ".($page-1)*$pagesize.",".$pagesize);
 	}
 
-	static public function materialJqueryList($group_id=0,$count=1)
+	static public function materialJqueryList($group_id=0,$count=1,$appid=1)
 	{
 		$count=max(1,intval($count));
 		$group_id=intval($group_id);
 
 		if($count>1)
 		{
-			return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".$group_id." ORDER BY `orderby` ASC LIMIT 0,".$count);
+			return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".$group_id." AND `appid`={$appid} ORDER BY `orderby` ASC LIMIT 0,".$count);
 		}
 		else
 		{
-			return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".$group_id);
+			return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".$group_id ." AND `appid`={$appid}");
 		}
 	}
 
@@ -824,7 +824,7 @@ class WeChatManage
 		return $orderby;  // 正确时返回图文条数
 	}
 
-	static public function postMediaMaterial($Title,$Author,$Description,$PicUrl,$thumb_media_id,$content,$urls)
+	static public function postMediaMaterial($Title,$Author,$Description,$PicUrl,$thumb_media_id,$content,$urls,$appid=1)
 	{
 		if(!$Title)
 		{
@@ -907,7 +907,7 @@ class WeChatManage
 			$info['Url']=$urls[$id];
 			$info['orderby']=$orderby;
 			$info['UpdateTime']=CLIENT_TIME;
-
+			$info['appid']=$appid;
 			if($id==0)
 			{
 				$group_id=MySql::insert(DB_PRE.self::$mMaterialTable,$info,true);
@@ -926,7 +926,7 @@ class WeChatManage
 		*/
 		$data=array();
 		
-		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mMaterialTable." WHERE `id`=$group_id");
+		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mMaterialTable." WHERE `id`=$group_id AND `appid`={$appid}");
 		$r=pw_addslashes($r);
 
 		foreach($r as $k => $_r)
@@ -941,12 +941,13 @@ class WeChatManage
 			'show_cover_pic'=>1,	
 			'content'=>urlencode($_r['content']),	
 			'content_source_url'=>$content_source_url,
+			'appid'=>$appid
 			);
 
 			MySql::update(DB_PRE.self::$mMaterialTable,array('content_source_url'=>$content_source_url),'id='.$_r['id']);
 		}
 		
-		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mMaterialTable." WHERE `group_id`=$group_id");
+		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mMaterialTable." WHERE `group_id`=$group_id AND `appid`={$appid}");
 		$r=pw_addslashes($r);
 
 		foreach($r as $k => $_r)
@@ -961,6 +962,7 @@ class WeChatManage
 			'show_cover_pic'=>1,	
 			'content'=>urlencode($_r['content']),	
 			'content_source_url'=>$content_source_url,
+			'appid'=>$appid
 			);
 
 			MySql::update(DB_PRE.self::$mMaterialTable,array('content_source_url'=>$content_source_url),'id='.$_r['id']);
@@ -981,9 +983,9 @@ class WeChatManage
 	}
 	
 	
-	static public function materialList($pagesize=12)
+	static public function materialList($pagesize=12,$appid=1)
 	{
-		$where='`group_id`=0';
+		$where='`group_id`=0 AND `appid`='.$appid;
 		$orderby='id DESC';
 
 		$result=DataList::getList(DB_PRE.self::$mMaterialTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');
@@ -993,9 +995,9 @@ class WeChatManage
 		return $result;
 	}
 
-	static public function videoMaterialList($pagesize=12)
+	static public function videoMaterialList($pagesize=12,$appid=1)
 	{
-		$where='1';
+		$where=" `appid`={$appid} ";
 		$orderby='created_at DESC';
 
 		$result=DataList::getList(DB_PRE.self::$mVideoMaterialTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');
@@ -1005,9 +1007,9 @@ class WeChatManage
 		return $result;
 	}
 
-	static public function voiceMaterialList($pagesize=12)
+	static public function voiceMaterialList($pagesize=12,$appid=1)
 	{
-		$where='1';
+		$where="`appid`={$appid}";
 		$orderby='created_at DESC';
 
 		$result=DataList::getList(DB_PRE.self::$mVoiceMaterialTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');
@@ -1017,9 +1019,9 @@ class WeChatManage
 		return $result;
 	}
 
-	static public function imagesMaterialList($pagesize=12)
+	static public function imagesMaterialList($pagesize=12,$appid=1)
 	{
-		$where='1';
+		$where="`appid`={$appid}";
 		$orderby='created_at DESC';
 
 		$result=DataList::getList(DB_PRE.self::$mImageMaterialTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');
@@ -1029,9 +1031,9 @@ class WeChatManage
 		return $result;
 	}
 
-	static public function getMutiMaterial($group_id)
+	static public function getMutiMaterial($group_id,$appid=1)
 	{
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".intval($group_id));
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mMaterialTable."` WHERE `group_id`=".intval($group_id) ." AND `appid`={$appid}" );
 	}
 
 	static public function getMaterial($id,$f='*')
@@ -1198,7 +1200,7 @@ class WeChatManage
 
 	}
 
-	static public function mediaMaterialSynchronism($offset=0,$count=20)
+	static public function mediaMaterialSynchronism($offset=0,$count=20,$appid=1)
 	{
 		$url='https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.WECHAT_ACCESS_TOKEN;
 		$output=(array)json_decode(http_request($url,'{"type":"news","offset":"'.$offset.'","count":"'.$count.'"}'));
@@ -1251,7 +1253,7 @@ class WeChatManage
 						$info['UpdateTime']=$data['update_time'];
 						$info['orderby']=$key;
 						$info['group_id']=$group_id;
-
+						$info['appid'] = $appid;
 						if($key==0)
 						{
 							$info['media_id']=$data['media_id'];
@@ -1271,7 +1273,7 @@ class WeChatManage
 		return $output;
 	}
 
-	static public function materialSynchronism($offset=0,$count=20,$type='image')
+	static public function materialSynchronism($offset=0,$count=20,$type='image',$appid=1)
 	{
 		$url='https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.WECHAT_ACCESS_TOKEN;
 		$output=(array)json_decode(http_request($url,'{"type":"'.$type.'","offset":"'.$offset.'","count":"'.$count.'"}'));
@@ -1315,6 +1317,7 @@ class WeChatManage
 					$func='post'.ucfirst($type).'Material';
 					$info['description']=$err['description'];
 					$info['remote_url']=$err['down_url']?$err['down_url']:$info['remote_url'];
+					$info['appid'] = $appid;
 					self::$func($info);
 				}
 				else
@@ -1333,7 +1336,7 @@ class WeChatManage
 		return MySql::insert(DB_PRE.self::$mMaterialTable,$info,true);
 	}
 
-	static public function materialKeywordList($keyword='')
+	static public function materialKeywordList($keyword='',$appid=1)
 	{
 		$keyword=htmlspecialchars($keyword);
 		
@@ -1342,19 +1345,19 @@ class WeChatManage
 		switch(WECHAT_HELP_MSG_TYPE)
 		{
 			case 'text':
-				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='text' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
+				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='text' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
 				
 				if(!$r)
 				{
-					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='text' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
+					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='text' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
 				}
 				$data=strip_tags($r['content'],'</a>');
 				break;
 			case 'image':
-				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='image' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
+				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='image' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
 				if(!$r)
 				{
-					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='image' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
+					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='image' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
 				}
 				
 				if($r)
@@ -1363,10 +1366,10 @@ class WeChatManage
 				}
 				break;
 			case 'voice':
-				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='voice' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
+				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='voice' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
 				if(!$r)
 				{
-					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='voice' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
+					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='voice' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
 				}
 				
 				if($r)
@@ -1375,10 +1378,10 @@ class WeChatManage
 				}
 				break;
 			case 'video':
-				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='video' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
+				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='video' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
 				if(!$r)
 				{
-					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='video' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
+					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='video' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
 				}
 				
 				if($r)
@@ -1387,10 +1390,10 @@ class WeChatManage
 				}
 				break;
 			default:
-				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='media' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
+				$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='media' AND `keyword_type`=1 AND `keyword`='".$keyword."'");
 				if(!$r)
 				{
-					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `material_type`='media' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
+					$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mAutoReplyTable."` WHERE `appid`={$appid} AND `material_type`='media' AND `keyword_type`=0 AND `keyword` LIKE '%".$keyword."%'");
 				}
 				
 				if($r)
@@ -1406,28 +1409,28 @@ class WeChatManage
 	/*
 		表情
 	*/
-	static public function getEmojiList()
+	static public function getEmojiList($appid=1)
 	{
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mEmojitTable."`");
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` AND `appid`={$appid} ");
 	}
 
-	static public function getEmoji($emoji='')
+	static public function getEmoji($emoji='',$appid=1)
 	{
-		return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` WHERE `emoji`='".str_callback_w($emoji)."'");
+		return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` WHERE `emoji`='".str_callback_w($emoji)."' AND `appid`={$appid}");
 	}
 
 	/*
 		粉丝
 	*/
 	
-	static public function groupLimitList()
+	static public function groupLimitList($appid=1)
 	{
-		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mGroupsTable."` ORDER BY `id` ASC");
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mGroupsTable."` WHERE `appid`={$appid} ORDER BY `id` ASC");
 	}
 
-	static public function groupList($pagesize=20)
+	static public function groupList($pagesize=20,$appid=1)
 	{
-		$where='1';
+		$where="`appid`={$appid}";
 		$orderby='id ASC';
 
 		$result=DataList::getList(DB_PRE.self::$mGroupsTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');
@@ -1437,7 +1440,7 @@ class WeChatManage
 		return $result;
 	}
 
-	static public function groupsAdd($info)
+	static public function groupsAdd($info,$appid=1)
 	{
 		$url='https://api.weixin.qq.com/cgi-bin/groups/create?access_token='.WECHAT_ACCESS_TOKEN;
 		$output=(array)json_decode(http_request($url,'{"group":{"name":"'.$info['name'].'"}}'));
@@ -1446,8 +1449,11 @@ class WeChatManage
 		{
 			return false;
 		}
-
-		MySql::insert(DB_PRE.self::$mGroupsTable,(array)$output['group'],true);
+		$groupList = $output['group'];
+		foreach ($groupList as $key=>$group){
+			$groupList[$key]['appid'] = $appid;
+		}
+		MySql::insert(DB_PRE.self::$mGroupsTable,(array)$groupList,true);
 
 		return true;
 	}
@@ -1492,7 +1498,7 @@ class WeChatManage
 		return true;
 	}
 
-	static public function groupsSynchronism()
+	static public function groupsSynchronism($appid=1)
 	{
 		$url='https://api.weixin.qq.com/cgi-bin/groups/get?access_token='.WECHAT_ACCESS_TOKEN;
 		$output=(array)json_decode(http_request($url));
@@ -1502,17 +1508,19 @@ class WeChatManage
 			return false;
 		}
 		
-		MySql::query("TRUNCATE ".DB_PRE.self::$mGroupsTable."");
-
-		foreach($output['groups'] as $group)
+		MySql::query("DELETE FROM ".DB_PRE.self::$mGroupsTable." WHERE `appid`=$appid");
+		$groups = $output['groups'];
+		
+		foreach($groups as $group)
 		{
+			$group['appid'] = $appid;
 			MySql::insert(DB_PRE.self::$mGroupsTable,(array)$group,true);
 		}
 
 		return true;
 	}
 
-	static public function fansSynchronism($next_openid)
+	static public function fansSynchronism($next_openid,$appid=1)
 	{
 		$url='https://api.weixin.qq.com/cgi-bin/user/get?access_token='.WECHAT_ACCESS_TOKEN.'&next_openid='.$next_openid;
 		$output=(array)json_decode(http_request($url));
@@ -1526,6 +1534,7 @@ class WeChatManage
 				$useroutput=(array)json_decode(http_request($url));
 				$useroutput['issubscribe']=$useroutput['subscribe'];
 				$useroutput['subscribetime']=$useroutput['subscribe_time'];
+				$useroutput['appid'] = $appid;
 				
 				$r=self::getUserByOpenid($openid);
 				if($r)
@@ -1571,11 +1580,13 @@ class WeChatManage
 		return $f=='*'?$r:$r[$f];
 	}
 
-	static public function userList($groupid=0,$pagesize=10)
+	static public function userList($groupid=0,$pagesize=10,$appid=1)
 	{
 		$groupid=intval($groupid);
 
-		$where=$groupid?'groupid='.$groupid:'1';
+		$where= $groupid?'groupid='.$groupid:'1';
+		$where .= " AND `appid`={$appid}";
+		
 		$orderby='id DESC';
 
 		$result=DataList::getList(DB_PRE.self::$mFansTable,$where,$orderby,max(isset($_GET['page'])?intval($_GET['page']):1,1),intval($pagesize),0,'right');

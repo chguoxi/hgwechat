@@ -18,17 +18,18 @@ use phpWeChat\Upload;
 $mod='wechat';
 $file=@return_edefualt(str_callback_w($_GET['file']),'config');
 $action=@return_edefualt(str_callback_w($_GET['action']),'config');
-
+$appid = $_SESSION['appid'] ? (int)$_SESSION['appid'] : 1;
+//var_dump($appid);
 switch($action)
 {
 	case 'material':
-		$data=WeChatManage::materialList(25);
+		$data=WeChatManage::materialList(25,$appid);
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	case 'material_synchronism':
 		if(!isset($offset))
 		{
-			MySql::query("TRUNCATE TABLE `".DB_PRE."wechat_material`");
+			MySql::query("DELETE FROM `".DB_PRE."wechat_material` WHERE `appid`={$appid}");
 			operation_tips('准备工作结束，开始同步图文素材...','?mod=wechat&file=config&action=material_synchronism&offset=0');
 		}
 		else
@@ -39,7 +40,7 @@ switch($action)
 			}
 			else
 			{
-				$data=WeChatManage::mediaMaterialSynchronism($offset,20);
+				$data=WeChatManage::mediaMaterialSynchronism($offset,20,$appid);
 				if(is_array($data))
 				{
 					operation_tips('正在同步图文素材数据...','?mod=wechat&file=config&action=material_synchronism&item_count='.$data['item_count'].'&offset='.($offset+min(20,$data['item_count'])));
@@ -80,17 +81,17 @@ switch($action)
 			}
 		}
 
-		$imageJuqeryList=WeChatManage::imageMaterialJqueryList($page,100);
+		$imageJuqeryList=WeChatManage::imageMaterialJqueryList($page,100,$appid);
 
 		$parentdata=WeChatManage::getMaterial($id);
-		$childdata=WeChatManage::getMutiMaterial($parentdata['id']);
+		$childdata=WeChatManage::getMutiMaterial($parentdata['id'],$appid);
 
 		include_once parse_admin_tlp($file.'-'.$action,'wechat');
 		break;
 	case 'material_post':
 		if(isset($dosbumit))
 		{
-			$op=WeChatManage::postMediaMaterial($Title,$Author,$Description,$PicUrl,$thumb_media_id,$content,$url);
+			$op=WeChatManage::postMediaMaterial($Title,$Author,$Description,$PicUrl,$thumb_media_id,$content,$url,$appid);
 
 			if($op>0)
 			{
@@ -102,14 +103,14 @@ switch($action)
 			}
 		}
 
-		$imageJuqeryList=WeChatManage::imageMaterialJqueryList($page,100);
+		$imageJuqeryList=WeChatManage::imageMaterialJqueryList($page,100,$appid);
 
 		include_once parse_admin_tlp($file.'-'.$action,'wechat');
 		break;
 	case 'images_material_synchronism':
 		if(!isset($offset))
 		{
-			MySql::query("TRUNCATE TABLE `".DB_PRE."wechat_image_material`");
+			MySql::query("DELETE FROM `".DB_PRE."wechat_image_material` WHERE `appid`={$appid}");
 			operation_tips('准备工作结束，开始同步图片素材...','?mod=wechat&file=config&action=images_material_synchronism&offset=0');
 		}
 		else
@@ -120,7 +121,7 @@ switch($action)
 			}
 			else
 			{
-				$data=WeChatManage::materialSynchronism($offset,20,'image');
+				$data=WeChatManage::materialSynchronism($offset,20,'image',$appid);
 				if(is_array($data))
 				{
 					operation_tips('正在同步图片素材数据...','?mod=wechat&file=config&action=images_material_synchronism&item_count='.$data['item_count'].'&offset='.($offset+min(20,$data['item_count'])));
@@ -135,7 +136,7 @@ switch($action)
 	case 'voice_material_synchronism':
 		if(!isset($offset))
 		{
-			MySql::query("TRUNCATE TABLE `".DB_PRE."wechat_voice_material`");
+			MySql::query("DELETE FROM `".DB_PRE."wechat_voice_material` WHERE `appid`={$appid}");
 			operation_tips('准备工作结束，开始同步语音素材...','?mod=wechat&file=config&action=voice_material_synchronism&offset=0');
 		}
 		else
@@ -146,7 +147,7 @@ switch($action)
 			}
 			else
 			{
-				$data=WeChatManage::materialSynchronism($offset,20,'voice');
+				$data=WeChatManage::materialSynchronism($offset,20,'voice',$appid);
 				if(is_array($data))
 				{
 					operation_tips('正在同步语音素材数据...','?mod=wechat&file=config&action=voice_material_synchronism&item_count='.$data['item_count'].'&offset='.($offset+min(20,$data['item_count'])));
@@ -161,7 +162,7 @@ switch($action)
 	case 'video_material_synchronism':
 		if(!isset($offset))
 		{
-			MySql::query("TRUNCATE TABLE `".DB_PRE."wechat_video_material`");
+			MySql::query("DELETE FROM `".DB_PRE."wechat_video_material` WHERE `appid`={$appid}");
 			operation_tips('准备工作结束，开始同步视频素材...','?mod=wechat&file=config&action=video_material_synchronism&offset=0');
 		}
 		else
@@ -172,7 +173,7 @@ switch($action)
 			}
 			else
 			{
-				$data=WeChatManage::materialSynchronism($offset,20,'video');
+				$data=WeChatManage::materialSynchronism($offset,20,'video',$appid);
 				if(is_array($data))
 				{
 					operation_tips('正在同步视频素材数据...','?mod=wechat&file=config&action=video_material_synchronism&item_count='.$data['item_count'].'&offset='.($offset+min(20,$data['item_count'])));
@@ -198,7 +199,7 @@ switch($action)
 				exit('<script language="javascript" type="text/javascript">alert("图片素材上传失败['.$op.']！");</script>');
 			}
 		}
-		$data=WeChatManage::imagesMaterialList(25);
+		$data=WeChatManage::imagesMaterialList(25,$appid);
 		include_once parse_admin_tlp($file.'-'.$action,'wechat');
 		break;
 	case 'material_voice':
@@ -215,17 +216,17 @@ switch($action)
 				operation_tips('接口异常 ['.$op.']，操作中断！','?mod=wechat&file=config&action=material_voice','error');
 			}
 		}
-		$data=WeChatManage::voiceMaterialList(25);
+		$data=WeChatManage::voiceMaterialList(25,$appid);
 		include_once parse_admin_tlp($file.'-'.$action,'wechat');
 		break;
 	case 'material_video':
-		$data=WeChatManage::videoMaterialList(25);
+		$data=WeChatManage::videoMaterialList(25,$appid);
 		include_once parse_admin_tlp($file.'-'.$action,'wechat');
 		break;
 	case 'config':
 		if(isset($dosubmit))
 		{
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！','?mod=wechat&file=config&action=interface');
 		}
 
@@ -247,7 +248,7 @@ switch($action)
 			$wechat_apiclient_key=Upload::pemUpload('wechat_apiclient_key','upload/pem/wepay/cert/');
 			$info['wechat_apiclient_key']=is_pem($wechat_apiclient_key)?$wechat_apiclient_key:$info['wechat_apiclient_key'];
 
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('微信支付参数配置成功！','?mod=wechat&file=config&action=wepay');
 		}
 

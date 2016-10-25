@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>phpWeChat后台管理</title>
+    <title>微私募后台管理</title>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}admin/template/css/common.css"/>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}admin/template/css/main.css"/>
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}statics/core.css"/>
@@ -68,6 +68,6 @@
           </form>
       </div>
   </div>
-    <div class="statics-footer"> Powered by phpWeChat V{__PHPWECHAT_VERSION__}{__PHPWECHAT_RELEASE__} © , Processed in {php echo microtime()-$PW['time_start'];} second(s) , {MySql::$mQuery} queries <a href="#">至顶端↑</a></div>
+    <div class="statics-footer"> 微私募 V{__PHPWECHAT_VERSION__}{__PHPWECHAT_RELEASE__} © , Processed in {php echo microtime()-$PW['time_start'];} second(s) , {MySql::$mQuery} queries <a href="#">至顶端↑</a></div>
 </body>
 </html>
