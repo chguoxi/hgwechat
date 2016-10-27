@@ -1409,14 +1409,24 @@ class WeChatManage
 	/*
 		表情
 	*/
+<<<<<<< HEAD
 	static public function getEmojiList()
 	{
 		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` ");
+=======
+	static public function getEmojiList($appid=1)
+	{
+		return MySql::fetchAll("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` AND `appid`={$appid} ");
+>>>>>>> 0bf04d7e2c54c4e9169ec82dd21f29e389717c56
 	}
 
 	static public function getEmoji($emoji='',$appid=1)
 	{
+<<<<<<< HEAD
 		return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` WHERE `emoji`='".str_callback_w($emoji)."' ");
+=======
+		return MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mEmojitTable."` WHERE `emoji`='".str_callback_w($emoji)."' AND `appid`={$appid}");
+>>>>>>> 0bf04d7e2c54c4e9169ec82dd21f29e389717c56
 	}
 
 	/*

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {php use Pc\Demo\Demo;}
 <html>
 <ul>
@@ -8,4 +9,16 @@
 	{/loop}
 </ul>
 <span>{Demo::$mPageString}</span>
+=======
+{php use Pc\Demo\Demo;}
+<html>
+<ul>
+	{loop $data $r}
+
+	<li>{$r['title']} <a href="{U(MOD,'detail',array('id'=>$r['id']))}">详情</a></li>
+
+	{/loop}
+</ul>
+<span>{Demo::$mPageString}</span>
+>>>>>>> 0bf04d7e2c54c4e9169ec82dd21f29e389717c56
 </html>
