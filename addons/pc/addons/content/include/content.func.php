@@ -9,9 +9,5 @@ use phpWeChat\MySql;
 use phpWeChat\Order;
 use phpWeChat\Upload;
 
-//此处写该模块用到的一些操作函数
-//function test()
-//{
-//	echo 'hello world!';
-//}
+
 ?>

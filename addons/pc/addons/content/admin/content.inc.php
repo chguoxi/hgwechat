@@ -5,7 +5,7 @@
 	 * 您可以通过 switch 的 case 分支来实现不同的业务逻辑
 	 */
 
-use pc\Content\Content;
+
 use phpWeChat\Area;
 use phpWeChat\CaChe;
 use phpWeChat\Config;
@@ -14,12 +14,15 @@ use phpWeChat\Module;
 use phpWeChat\MySql;
 use phpWeChat\Order;
 use phpWeChat\Upload;
+use phpWeChat\Apps;
+use pc\Content\Content;
 
 !defined('IN_MANAGE') && exit('Access Denied!'); 
 
 $mod=@return_edefualt(str_callback_w($_GET['mod']),'content');
 $file=@return_edefualt(str_callback_w($_GET['file']),'content');
 $action=@return_edefualt(str_callback_w($_GET['action']),'config');
+$appid = Apps::getCurrAppId();
 
 $_parent=Module::getModuleByKey(Module::getModule($mod,'parentkey'));
 $_mod=$_parent['folder'].'/'.$mod.'/';
@@ -30,33 +33,47 @@ switch($action)
 	case 'config':
 		if(isset($dosubmit))
 		{
-			Config::setConfig($_mod,$config);
-			operation_tips('操作成功！','?mod=content&file=content&action=config');
+			Config::setConfig($_mod,$config,$appid);
+			operation_tips('操作成功！','?mod=content&file=content&action=intro');
 		}
+		
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
-	//以下 case 条件仅为 示例。您可以根据业务逻辑自由修改和拓展
-
-
-	//case 'manage':
-			
-		//在此写 phpwechat.php?mod=content&file=content&action=manage 时的逻辑
-			
-		//break;
-
-	//case 'add':
-			
-		//在此写 phpwechat.php?mod=content&file=content&action=add 时的逻辑
-		
-		//break;
-
-	//以此类推...
-
-	//case '...':
-			
-		//在此写 phpwechat.php?mod=content&file=content&action=... 时的逻辑
-			
-		//break;
+	case 'intro':
+		$key = 'pc_content_intro';
+		if(isset($dosubmit)){
+			$text = $content[$key];
+			Content::updateContent($key, $text, $appid);
+			operation_tips('操作成功！','?mod=content&file=content&action=intro');			
+		}
+		$info = Content::getOne($key, $appid);
+		// 已经保存的值
+		//print_r($introInfo);
+		$$key = $info && isset($info['content']) ? $info['content'] : '';
+		include_once parse_admin_tlp($file.'-'.$action,$mod);
+		break;
+	case 'idea':
+		$key = 'pc_content_idea';
+		if(isset($dosubmit)){
+			$text = $content[$key];
+			Content::updateContent($key, $text, $appid);
+			operation_tips('操作成功！','?mod=content&file=content&action=idea');
+		}
+		$info = Content::getOne($key, $appid);
+		$$key = $info && isset($info['content']) ? $info['content'] : '';
+		include_once parse_admin_tlp($file.'-'.$action,$mod);
+		break;
+	case 'jobs':
+		$key = 'pc_content_jobs';
+		if(isset($dosubmit)){
+			$text = $content[$key];
+			Content::updateContent($key, $text, $appid);
+			operation_tips('操作成功！','?mod=content&file=content&action=jobs');
+		}
+		$info = Content::getOne($key, $appid);
+		$$key = $info && isset($info['content']) ? $info['content'] : '';
+		include_once parse_admin_tlp($file.'-'.$action,$mod);
+		break;
 	default:
 		break;
 }

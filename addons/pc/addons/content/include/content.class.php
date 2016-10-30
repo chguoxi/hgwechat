@@ -1,27 +1,46 @@
 <?php
-// +----------------------------------------------------------------------
-// | phpWeChat content 操作类 Last modified 2016-10-29 12:34:34
-// +----------------------------------------------------------------------
-// | Copyright (c) 2009-2016 phpWeChat http://www.phpwechat.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Author: 骑马的少年 <phpwechat@126.com> <http://www.phpwechat.com>
-// +----------------------------------------------------------------------
+
 namespace pc\Content;
-use phpWeChat\Area;
 use phpWeChat\CaChe;
-use phpWeChat\Config;
-use phpWeChat\DataInput;
-use phpWeChat\DataList;
-use phpWeChat\Member;
-use phpWeChat\Module;
 use phpWeChat\MySql;
-use phpWeChat\Order;
-use phpWeChat\Upload;
 
-class Content
-{
-	public static $mPageString=''; // 这个静态成员是系统自带，请勿删除
+class Content {
+	public static $mPageString='';
+	private static $mContentTable='pc_content';
+
+	public static function addContent($key,$content,$appid){
+		$data = array(
+			'key'=>$key,
+			'content'=>$content,
+			'appid'=>$appid
+			);
+		return MySql::insert(DB_PRE.self::$mContentTable, $data,true);
+	}
 	
-
+	public static function updateContent($key,$content,$appid){
+		$data = array(
+			'content'=>$content
+		);
+		if (Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mContentTable ." WHERE `appid`={$appid} AND `key`='{$key}'")){
+			return Mysql::update(DB_PRE.self::$mContentTable, $data,"`appid`={$appid} AND `key`='{$key}'");
+		}
+		else{
+			self::addContent($key, $content, $appid);
+		}
+	}
+	
+	public static function getOne($key,$appid){
+		if (empty($key)){
+			return false;
+		}
+		$sql = "SELECT * FROM ".DB_PRE.self::$mContentTable. " WHERE `appid`={$appid} AND `key`='{$key}' LIMIT 1";
+		//echo $sql;exit;
+		return Mysql::fetchOne($sql);
+	}
+	
+	public static function getAllByAppid($appid){
+		$sql = "SELECT * FROM ".DB_PRE.self::$mContentTable. " WHERE `appid`={$appid} ";
+		return Mysql::fetchAll($sql);
+	}
 }
 ?>
