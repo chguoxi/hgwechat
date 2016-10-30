@@ -13,11 +13,11 @@ class Config
 {
 	private static $mConfigTable='config';
 	
-	public static function loadConfig()
+	public static function loadConfig($appid=1)
 	{
 		$_config=array();
 
-		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mConfigTable." WHERE 1");
+		$r=MySql::fetchAll("SELECT * FROM ".DB_PRE.self::$mConfigTable." WHERE `appid`={$appid}");
 
 		foreach($r as $_r)
 		{
@@ -27,20 +27,20 @@ class Config
 				$_config=array_merge($_config,$_selfconfig);
 			}
 		}
-
+		
 		return $_config;
 	}
 
-	public static function getConfig($mod='system')
+	public static function getConfig($mod='system',$appid=1)
 	{
-		$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mConfigTable."` WHERE `mod`='".preg_replace('/[^a-z0-9_]/i','',$mod)."'");;
+		$r=MySql::fetchOne("SELECT * FROM `".DB_PRE.self::$mConfigTable."` WHERE `mod`='".preg_replace('/[^a-z0-9_]/i','',$mod)."' AND `appid`={$appid}");;
 		return $r?array_map('base64_decode',json_decode($r['config'],true)):array();
 	}
 
-	public static function setConfig($mod='system',$setting=array())
+	public static function setConfig($mod='system',$setting=array(),$appid=1)
 	{
 		$mod=pw_md5($mod);
-		$_config=self::getConfig($mod);
+		$_config=self::getConfig($mod,$appid);
 		if(!$_config)
 		{
 			MySql::insert(DB_PRE.self::$mConfigTable,array('mod'=>$mod,'config'=>json_encode(array_map('base64_encode',$setting))),true);
@@ -49,7 +49,7 @@ class Config
 		{
 			$setting=array_merge(array_map('addslashes',$_config),$setting);
 
-			MySql::update(DB_PRE.self::$mConfigTable,array('config'=>json_encode(array_map('base64_encode',$setting))),'`mod`=\''.preg_replace('/[^a-z0-9_]/i','',$mod).'\'');
+			MySql::update(DB_PRE.self::$mConfigTable,array('config'=>json_encode(array_map('base64_encode',$setting))),'`mod`=\''.preg_replace('/[^a-z0-9_]/i','',$mod).'\' AND `appid`='.$appid);
 		}
 
 		return true;
