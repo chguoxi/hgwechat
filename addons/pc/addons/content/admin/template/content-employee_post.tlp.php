@@ -71,7 +71,22 @@ use phpWeChat\Form;
 								<tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red">*</i>性别：</th>
                                     <td class="formtd">
-                                 	<input type="text" name="employee[gender]" value="{$employee['gender']}" size="35"/>
+                                 	<fieldset>
+                                 		<input type="radio" name="employee[gender]" value="1" id="gender_male">
+                                 		<label for="gender_male">男</label>
+                                 	</fieldset>
+                                 	<fieldset>
+                                 		<input type="radio" name="employee[gender]" value="0" id="gender_male">
+                                 		<label for="gender_male">女</label>
+                                 	</fieldset>
+                                 	
+                                    </td>
+                                </tr>
+                                
+                                <tr class="formtr">
+                                    <th class="formth" width="12%"><i class="require-red"></i>个人履历：</th>
+                                    <td class="formtd">
+                                 		<textarea rows="10" cols="75"></textarea>
                                     </td>
                                 </tr>
                               
