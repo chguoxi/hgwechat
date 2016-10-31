@@ -1,0 +1,69 @@
+			<div class="layout--footer">
+				<footer class="footer -deluge">
+					<div class="footer--bg"></div>
+					<div class="footer--inner">
+						<div class="container">
+
+							<section class="footer_copyrights">
+								<div class="footer_copyrights--container">
+									<div class="row">
+										<div class="col-sm-6 col-xs-12">
+											<div class="footer_copyrights--item">
+												<div class="footer_copyrights--logo">
+													<a href="#"></a>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-6 col-xs-12">
+											<div class="footer_copyrights--item">
+												<p class="footer_copyrights--item_copyrights"><?php echo isset($PW['pc_site_copyright'])?$PW['pc_site_copyright']:'';?></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</section>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</div>
+	<div id="mobile_sidebar" class="mobile_sidebar">
+		<div class="mobile_sidebar--closer -white">
+			<button class="c-hamburger c-hamburger--htx is-active"><span>toggle menu</span></button>
+		</div>
+		<div class="mobile_menu">
+			<ul class="menu">
+				<li class="menu-item"><a href="#">首页</a></li>
+				<li class="menu-item"><a href="#">旗下基金</a></li>
+				<li class="menu-item"><a href="#">投资理念</a></li>
+				<li class="menu-item"><a href="#">招贤纳士</a></li>
+				<li class="menu-item"><a href="#">关于我们</a></li>
+				<li class="menu-item"><a href="#">联系我们</a></li>
+			</ul>
+		</div>
+
+	</div>
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/Headhesive.js/dist/headhesive.min.js"></script>
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/slideout.js/dist/slideout.min.js"></script>
+<!-- 	<link rel="stylesheet" href="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/magnific-popup/dist/magnific-popup.css">
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script> -->
+	
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/vide/dist/jquery.vide.min.js"></script>
+	
+	
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/mixitup/build/jquery.mixitup.min.js"></script>
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/isMobile/isMobile.min.js"></script>
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/isInViewport/lib/isInViewport.min.js"></script>
+	
+	
+	
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/tabby/dist/js/tabby.min.js"></script>
+	
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/slick-carousel/slick/slick.min.js"></script>
+	<link rel="stylesheet" href="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/libs/slick-carousel/slick/slick.css">
+	<script src="/<?php echo defined('TLP')?TLP:'{__TLP__}';?>assets/scripts/main.js"></script>
+</body>
+
+</html>

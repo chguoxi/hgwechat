@@ -10,7 +10,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>phpWeChat后台管理</title>
+    <title>微私募后台管理</title>
 
     <link rel="stylesheet" type="text/css" href="{__PW_PATH__}admin/template/css/common.css"/>
 

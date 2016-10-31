@@ -6,7 +6,7 @@
 .sidebar-content{padding-top: 5px;}
 .sidebar-list li{border-bottom: 1px solid #F3F3F3;border-width:1px 0;}
 .sidebar-list li .icon-font{margin-right: 5px;color: #888;font-size: 14px;}
-.sidebar-list li a{padding: 0 16px 0 20px;display: block;height: 48px;line-height: 48px;color: #333;}
+.sidebar-list li a{padding: 0 16px 0 20px;display: block;height: 40px;line-height: 40px;color: #333;}
 .sidebar-list li a:hover{background: #e5e5e5;color: #dec515;}
 .sub-menu{border-top: 1px solid #F3F3F3;background: #fff;}
 .sub-menu li{padding-left: 21px;}
@@ -16,7 +16,7 @@
 .sub-menu .icon-font{font-size: 11px;}
 pre{font-size:12px; color:#999;font-family:'Microsoft YaHei'; line-height:24px;}
 /* main */
-.crumb-wrap{height: 53px;line-height: 53px;border-bottom: 1px solid #F3F3F3;background: #f5f5f5;}
+.crumb-wrap{height: 45px;line-height: 45px;border-bottom: 1px solid #F3F3F3;background: #f5f5f5;}
 .crumb-list{padding-left: 12px;}
 .crumb-list .icon-font{margin-right: 5px;}
 .crumb-step{margin: 0 5px;color: #b2c2e0;font-family: serif;}

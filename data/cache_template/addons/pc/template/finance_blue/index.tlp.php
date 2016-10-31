@@ -1,0 +1,173 @@
+<?php include(template("header"));?>
+			<div class="layout--container">
+				<section class="promo_slider">
+					<div class="promo_slider--slides js-promo_slider">
+						<div class="promo_slider--slide">
+							<div class="video">
+								<div class="video--content">
+									<div class="slide_simple -backgroundless">
+										<div class="slide_simple--container">
+											<div class="container">
+												<div class="col-sm-10 col-sm-offset-1">
+													<h1 class="slide_simple--title">公司宣传幻灯片1</h1>
+													<p class="slide_simple--text">
+														致力于追求绝对收益
+													</p>
+													<div class="slide_simple--buttons">
+														<button class="button -red -arrowed -large"><span class="button--inner">立即查看</span></button>
+														<button class="button -white -arrowed -large"><span class="button--inner">预约</span></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="video--background">
+									<div class="video--background_placeholder"></div>
+									<div class="video--background_color"></div>
+									<div data-video-youtube='{"videoId":"LSmgKRx5pBo"}' class="video--background_video"></div>
+								</div>
+							</div>
+						</div>
+						<div class="promo_slider--slide">
+							<div class="slide_simple">
+								<div class="slide_simple--container">
+									<div class="container">
+										<div class="col-sm-10 col-sm-offset-1">
+											<h1 class="slide_simple--title">公司宣传幻灯片2</h1>
+											<p class="slide_simple--text">
+												完美的风险控制，追求绝对收益
+											</p>
+											<div class="slide_simple--buttons">
+												<button class="button -red -arrowed -large"><span class="button--inner">查看详情</span></button>
+												<button class="button -white -arrowed -large"><span class="button--inner">预约</span></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="promo_slider--slide">
+							<div class="slide_simple">
+								<div class="slide_simple--container">
+									<div class="container">
+										<div class="col-sm-10 col-sm-offset-1">
+											<h1 class="slide_simple--title">公司宣传幻灯片3</h1>
+											<p class="slide_simple--text">
+												完美的风险控制.
+											</p>
+											<div class="slide_simple--buttons">
+												<button class="button -red -arrowed -large"><span class="button--inner">查看详情</span></button>
+												<button class="button -white -arrowed -large"><span class="button--inner">预约</span></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="promo_slider--slide">
+							<div class="slide_simple">
+								<div class="slide_simple--container">
+									<div class="container">
+										<div class="col-sm-10 col-sm-offset-1">
+											<h1 class="slide_simple--title">公司宣传幻灯片4</h1>
+											<p class="slide_simple--text">
+												追求绝对收益
+											</p>
+											<div class="slide_simple--buttons">
+												<button class="button -red -arrowed -large"><span class="button--inner">查看详情</span></button>
+												<button class="button -white -arrowed -large"><span class="button--inner">预约</span></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="promo_slider--slide">
+							<div class="slide_simple">
+								<div class="slide_simple--container">
+									<div class="container">
+										<div class="col-sm-10 col-sm-offset-1">
+											<h1 class="slide_simple--title">公司宣传幻灯片5</h1>
+											<p class="slide_simple--text">
+												追求绝对收益
+											</p>
+											<div class="slide_simple--buttons">
+												<button class="button -red -arrowed -large"><span class="button--inner">查看详情</span></button>
+												<button class="button -white -arrowed -large"><span class="button--inner">预约</span></button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="promo_slider_nav">
+						<div class="container">
+							<div class="js-promo_slider_nav">
+								<div class="promo_slider_nav--slide">
+									<div class="promo_slider_nav--item">
+										<i class="promo_slider_nav--item_icon icons8-idea"></i>
+										<strong class="promo_slider_nav--item_title">稳健的投资风格</strong>
+										<p class="promo_slider_nav--item_description">最近一年最大回撤xx%</p>
+									</div>
+								</div>
+								<div class="promo_slider_nav--slide">
+									<div class="promo_slider_nav--item">
+										<i class="promo_slider_nav--item_icon icons8-center-direction"></i>
+										<strong class="promo_slider_nav--item_title">先进的投资策略</strong>
+										<p class="promo_slider_nav--item_description">量化投资</p>
+									</div>
+								</div>
+								<div class="promo_slider_nav--slide">
+									<div class="promo_slider_nav--item">
+										<i class="promo_slider_nav--item_icon icons8-debt"></i>
+										<strong class="promo_slider_nav--item_title">严格的风控体系</strong>
+										<p class="promo_slider_nav--item_description"></p>
+									</div>
+								</div>
+								<div class="promo_slider_nav--slide">
+									<div class="promo_slider_nav--item">
+										<i class="promo_slider_nav--item_icon icons8-talk"></i>
+										<strong class="promo_slider_nav--item_title">涉猎全球金融市场</strong>
+										<p class="promo_slider_nav--item_description">完善的对冲工具</p>
+									</div>
+								</div>
+								<div class="promo_slider_nav--slide">
+									<div class="promo_slider_nav--item">
+										<i class="promo_slider_nav--item_icon icons8-bullish"></i>
+										<strong class="promo_slider_nav--item_title">追求绝对收益</strong>
+										<p class="promo_slider_nav--item_description">绝对收益</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				
+				
+				
+				<hr class="section_divider">
+				
+				
+				
+				<section class="promo_banner section -paddingless -centered">
+					<div class="promo_banner--container">
+						<div class="container">
+							<h2 class="promo_banner--title">公司介绍</h2>
+							<p class="promo_banner--text">
+								公司介绍文字公司介绍文字公司介绍文字公司介绍文字公司介绍文字公司介绍文字
+								公司介绍文字公司介绍文字公司介绍文字公司介绍文字公司介绍文字公司介绍文字
+								<br/>
+							</p>
+							<footer class="promo_banner--footer">
+								
+							</footer>
+						</div>
+					</div>
+				</section>
+				
+				
+
+			</div>
+<?php include(template("footer"));?>

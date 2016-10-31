@@ -16,6 +16,7 @@ $mod='system';
 $file=@return_edefualt(str_callback_w($_GET['file']),'config');
 $action=@return_edefualt(str_callback_w($_GET['action']),'base');
 
+//print_r($_SESSION);
 switch($action)
 {
 	case 'base':
@@ -23,7 +24,7 @@ switch($action)
 		{
 			$info['site_url']=substr($info['site_url'],-1)=='/'?$info['site_url']:$info['site_url'].'/';
 			$info['site_url']=substr($info['site_url'],0,7)=='http://'?$info['site_url']:'http://'.$info['site_url'];
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		
@@ -32,7 +33,7 @@ switch($action)
 	case 'upload':
 		if(isset($dosubmit))
 		{
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		include_once parse_admin_tlp($file.'-'.$action);
@@ -49,7 +50,7 @@ switch($action)
 					operation_tips('参数配置不正确，邮件无法正常发送['.Email::$mError[1].']','','error','5000');
 				}
 			}
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		include_once parse_admin_tlp($file.'-'.$action);
@@ -65,7 +66,7 @@ switch($action)
 					operation_tips('参数配置不正确，短信无法正常发送[错误代码：'.$send_result[0].']','','error','5000');
 				}
 			}
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 		include_once parse_admin_tlp($file.'-'.$action);
@@ -205,7 +206,7 @@ switch($action)
 			MySql::createIndexTable();
 
 			$info['memcache_host']=trim($info['memcache_host']);
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 
@@ -221,7 +222,7 @@ switch($action)
 
 			$info['cookie_domain']=$info['cookie_domain']?(substr($info['cookie_domain'],0,1)=='.'?$info['cookie_domain']:'.'.$info['cookie_domain']):'';
 			$info['cookie_pre']=preg_replace('/[^A-Z0-9_]/i','',strtoupper($info['cookie_pre']));
-			Config::setConfig($mod,$info);
+			Config::setConfig($mod,$info,$appid);
 			operation_tips('参数配置成功！');
 		}
 
