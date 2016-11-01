@@ -42,8 +42,8 @@ use phpWeChat\Form;
                    <div class="admin-nav">
                         <h2>添加核心人物</h2>
                         <div class="nav">
-                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_post">增加核心人物</a>
-                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" class="hover">核心人物列表</a>
+                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_post" class="hover">增加核心人物</a>
+                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" >核心人物列表</a>
                         </div>
                     </div>
 					<div class="result-content" id="content_panel_1">
@@ -67,26 +67,47 @@ use phpWeChat\Form;
                                  	<input type="text" name="employee[lastname]" value="{$employee['job_title']}" size="35"/>
                                     </td>
                                 </tr>
-                              
+                                
+								<tr class="formtr">
+                                    <th class="formth" width="12%"><i class="require-red">*</i>毕业院校：</th>
+                                    <td class="formtd">
+                                 	<input type="text" name="employee[college]" value="{$employee['college']}" size="35"/>
+                                    </td>
+                                </tr>    
+                                                                                        
 								<tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red">*</i>性别：</th>
                                     <td class="formtd">
-                                 	<fieldset>
+                                 	<div >
                                  		<input type="radio" name="employee[gender]" value="1" id="gender_male">
                                  		<label for="gender_male">男</label>
-                                 	</fieldset>
-                                 	<fieldset>
-                                 		<input type="radio" name="employee[gender]" value="0" id="gender_male">
-                                 		<label for="gender_male">女</label>
-                                 	</fieldset>
+                                 		
+                                 		<input type="radio" name="employee[gender]" value="0" id="gender_female">
+                                 		<label for="gender_female">女</label>
+                                 	</div>
                                  	
                                     </td>
                                 </tr>
                                 
+								<tr class="formtr">
+                                    <th class="formth" width="12%"><i class="require-red">*</i>从业开始年份：</th>
+                                    <td class="formtd">
+                                 	<div >
+                                 		{php $years=range(1990,date('Y'))}
+										<select name="employee[work_start_year]">
+										{loop $years $key $year}
+										<option value="{$year}" {if $year==date('Y')}selected="selected" {/if}>{$year}</option>
+										{/loop}
+										</select>
+                                 	</div>
+                                 	
+                                    </td>
+                                </tr>                                
                                 <tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red"></i>个人履历：</th>
                                     <td class="formtd">
-                                 		<textarea rows="10" cols="75"></textarea>
+                                 		 {php Form::loadForm('employee[personal_experience]');}
+                                    	 {php echo Form::baiduEditor('个人履历','employee[personal_experience]',$employee['employee[personal_experience]']);}
                                     </td>
                                 </tr>
                               

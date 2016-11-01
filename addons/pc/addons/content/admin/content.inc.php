@@ -16,6 +16,7 @@ use phpWeChat\Order;
 use phpWeChat\Upload;
 use phpWeChat\Apps;
 use pc\Content\Content;
+use pc\Content\Employee;
 
 !defined('IN_MANAGE') && exit('Access Denied!'); 
 
@@ -72,6 +73,17 @@ switch($action)
 		}
 		$info = Content::getOne($key, $appid);
 		$$key = $info && isset($info['content']) ? $info['content'] : '';
+		include_once parse_admin_tlp($file.'-'.$action,$mod);
+		break;
+	case 'employee_post':
+		
+		if(isset($dosubmit)){
+			print_r($_POST);
+			print_r($employee);exit;
+			Employee::addEmployee($employee);
+			operation_tips('操作成功！','?mod=content&file=content&action=jobs');
+		}
+		
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	default:
