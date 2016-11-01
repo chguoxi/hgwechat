@@ -78,8 +78,7 @@ switch($action)
 	case 'employee_post':
 		
 		if(isset($dosubmit)){
-			print_r($_POST);
-			print_r($employee);exit;
+			
 			Employee::addEmployee($employee);
 			operation_tips('操作成功！','?mod=content&file=content&action=jobs');
 		}
