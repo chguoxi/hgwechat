@@ -78,8 +78,10 @@ switch($action)
 	case 'employee_post':
 		
 		if(isset($dosubmit)){
-			
-			Employee::addEmployee($employee);
+			//print_r($_POST);
+			//print_r($employee);exit;
+			$employee['appid'] = $appid;
+			Employee::updateEmployee($employee);
 			operation_tips('操作成功！','?mod=content&file=content&action=jobs');
 		}
 		

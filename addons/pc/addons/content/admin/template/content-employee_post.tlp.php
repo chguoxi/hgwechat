@@ -50,15 +50,15 @@ use phpWeChat\Form;
                         <table width="100%" class="insert-tab">
                             <tbody>
 								<tr class="formtr">
-                                    <th class="formth" width="12%"><i class="require-red">*</i>名字：</th>
+                                    <th class="formth" width="12%"><i class="require-red">*</i>姓名：</th>
                                     <td class="formtd">
-                                 	<input type="text" name="employee[lastname]" value="{$employee['lastname']}" size="35"/>
+                                 	<input type="text" name="employee[name]" value="{$employee['name']}" size="35"/>
                                     </td>
                                 </tr>
 								<tr class="formtr">
-                                    <th class="formth" width="12%"><i class="require-red">*</i>姓氏：</th>
+                                    <th class="formth" width="12%"><i class="require-red">*</i>工号：</th>
                                     <td class="formtd">
-                                 	<input type="text" name="employee[lastname]" value="{$employee['firstname']}" size="35"/>
+                                 	<input type="text" name="employee[employee_id]" value="{$employee['employee_id']}" size="35"/>
                                     </td>
                                 </tr>
 								<tr class="formtr">
@@ -106,8 +106,8 @@ use phpWeChat\Form;
                                 <tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red"></i>个人履历：</th>
                                     <td class="formtd">
-                                 		 {php Form::loadForm('employee[personal_experience]');}
-                                    	 {php echo Form::baiduEditor('个人履历','employee[personal_experience]',$employee['employee[personal_experience]']);}
+                                 		 {php Form::loadForm('employee');}
+                                    	 {php echo Form::baiduEditor('个人履历','personal_experience',$employee['personal_experience']);}
                                     </td>
                                 </tr>
                               
