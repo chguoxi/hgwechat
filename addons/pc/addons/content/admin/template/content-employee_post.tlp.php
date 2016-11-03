@@ -47,6 +47,7 @@ use phpWeChat\Form;
                         </div>
                     </div>
 					<div class="result-content" id="content_panel_1">
+						{php Form::loadForm('employee');}
                         <table width="100%" class="insert-tab">
                             <tbody>
 								<tr class="formtr">
@@ -67,7 +68,12 @@ use phpWeChat\Form;
                                  	<input type="text" name="employee[lastname]" value="{$employee['job_title']}" size="35"/>
                                     </td>
                                 </tr>
-                                
+                                 <tr class="formtr">
+                                    <th class="formth"><i class="require-red">*</i>头像：</th>
+                                    <td class="formtd">
+                                    {php echo Form::image('个人头像','avatar',$employee['avatar']);}
+                                    </td>
+                                </tr>                               
 								<tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red">*</i>毕业院校：</th>
                                     <td class="formtd">
@@ -106,7 +112,7 @@ use phpWeChat\Form;
                                 <tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red"></i>个人履历：</th>
                                     <td class="formtd">
-                                 		 {php Form::loadForm('employee');}
+                                 		 
                                     	 {php echo Form::baiduEditor('个人履历','personal_experience',$employee['personal_experience']);}
                                     </td>
                                 </tr>
