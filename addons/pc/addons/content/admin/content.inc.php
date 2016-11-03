@@ -75,16 +75,17 @@ switch($action)
 		$$key = $info && isset($info['content']) ? $info['content'] : '';
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
-	case 'employee_post':
+	case 'employee':
 		
+		break;
+	case 'employee_post':
 		if(isset($dosubmit)){
 			//print_r($_POST);
 			//print_r($employee);exit;
 			$employee['appid'] = $appid;
 			Employee::updateEmployee($employee);
-			operation_tips('操作成功！','?mod=content&file=content&action=jobs');
+			operation_tips('操作成功！','?mod=content&file=content&action=employee');
 		}
-		
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	default:

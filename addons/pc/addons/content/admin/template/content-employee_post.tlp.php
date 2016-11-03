@@ -42,8 +42,9 @@ use phpWeChat\Form;
                    <div class="admin-nav">
                         <h2>添加核心人物</h2>
                         <div class="nav">
+                        	<a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" >核心人物列表</a>
                             <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_post" class="hover">增加核心人物</a>
-                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" >核心人物列表</a>
+                            
                         </div>
                     </div>
 					<div class="result-content" id="content_panel_1">
