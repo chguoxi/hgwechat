@@ -1,7 +1,7 @@
 							<ul class="menu">
-								<li class="menu-item current-menu-item"><a href="#">首页</a></li>
+								<li class="menu-item {if $action=='index'}{php echo 'current-menu-item'}{/if}"><a href="/">首页</a></li>
 
-								<li class="menu-item menu-item-has-mega-menu">
+								<li class="menu-item menu-item-has-mega-menu {if $action=='products'}{php echo 'current-menu-item'}{/if}">
 									<a href="#">旗下基金</a>
 									<div class="mega-menu">
 										<div class="mega_nav">
@@ -122,10 +122,10 @@
 									</div>
 								</li>
 
-								<li class="menu-item"><a href="#">投资理念</a></li>
-								<li class="menu-item"><a href="#">招贤纳士</a></li>
-								<li class="menu-item">
-									<a href="#">关于我们</a>
+								<li class="menu-item {if $action=='idea'}{php echo 'current-menu-item'}{/if}"><a href="/index.php?file=index&a=idea">投资理念</a></li>
+								<li class="menu-item {if $action=='careers'}{php echo 'current-menu-item'}{/if}"><a href="/index.php?file=index&a=careers">招贤纳士</a></li>
+								<li class="menu-item {if $action=='about_us'}{php echo 'current-menu-item'}{/if}">
+									<a href="/index.php?file=index&a=about_us">关于我们</a>
 									<!-- submenu-->
 									<!-- 
 									<ul class="sub-menu">
@@ -149,6 +149,6 @@
 									 -->
 
 								</li>								
-								<li class="menu-item"><a href="#">联系我们</a></li>
+								<li class="menu-item {if $action=='contact_us'}{php echo 'current-menu-item'}{/if}"><a href="/index.php?file=index&a=contact_us">联系我们</a></li>
 
 							</ul>
