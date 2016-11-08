@@ -86,10 +86,11 @@ switch($action)
 			Employee::updateEmployee($employee);
 			operation_tips('操作成功！','?mod=content&file=content&action=employee');
 		}
-		$id = intaval($_GET['id']);
+		$id = intval($_GET['id']);
 		if( $id>0 ){
 			$employee = Employee::getOne($id, $appid);
 		}
+		
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	default:
