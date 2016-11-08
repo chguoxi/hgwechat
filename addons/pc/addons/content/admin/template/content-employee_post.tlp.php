@@ -42,8 +42,8 @@ use phpWeChat\Form;
                    <div class="admin-nav">
                         <h2>添加核心人物</h2>
                         <div class="nav">
-                        	<a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" >核心人物列表</a>
-                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_post" class="hover">增加核心人物</a>
+                        	<a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=content&file=content&action=employee" >核心人物列表</a>
+                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=content&file=content&action=employee_post" class="hover">增加核心人物</a>
                             
                         </div>
                     </div>
@@ -81,7 +81,18 @@ use phpWeChat\Form;
                                  	<input type="text" name="employee[college]" value="{$employee['college']}" size="35"/>
                                     </td>
                                 </tr>    
-                                                                                        
+								<tr class="formtr">
+                                    <th class="formth" width="12%"><i class="require-red">*</i>学历：</th>
+                                    <td class="formtd">
+                                 	<input type="text" name="employee[degree]" value="{$employee['degree']}" size="35"/>
+                                    </td>
+                                </tr>                                                                                          
+								<tr class="formtr">
+                                    <th class="formth" width="12%"><i class="require-red">*</i>从业背景：</th>
+                                    <td class="formtd">
+                                 	<input type="text" name="employee[occupation_background]" value="{$employee['occupation_background']}" size="35"/>
+                                    </td>
+                                </tr>                                                                                          
 								<tr class="formtr">
                                     <th class="formth" width="12%"><i class="require-red">*</i>性别：</th>
                                     <td class="formtd">

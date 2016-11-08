@@ -18,7 +18,7 @@ class Employee {
 			return false;
 		}
 		
-		$info = Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mEmployeeTable ." WHERE `employee_id`={$data['employee_id']} limit 1");
+		$info = Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mEmployeeTable ." WHERE `employee_id`='{$data['employee_id']}' limit 1");
 		if (isset($info['employee_id']) && $info['employee_id']==$data['employee_id']){
 			return Mysql::update(DB_PRE.self::$mEmployeeTable, $data, "`employee_id`='{$data['employee_id']}'");
 		}
@@ -33,6 +33,10 @@ class Employee {
 	}
 	
 	public static function deleteEmployee($id){
-		return mysql::mysqlDelete(DB_PRE.self::$mEmployeeTable, $id, 'id');
+		return Mysql::mysqlDelete(DB_PRE.self::$mEmployeeTable, $id, 'id');
+	}
+	
+	public static function getOne($id,$appid){
+		return Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mEmployeeTable. "WHERE `id`={$id}")." AND `appid`={$appid}";
 	}
 }

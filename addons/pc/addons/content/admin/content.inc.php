@@ -76,15 +76,19 @@ switch($action)
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	case 'employee':
-		
+		$employees = Employee::getAllEmployee($appid);
+		//echo Mysql::getLastSql();exit;
+		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;
 	case 'employee_post':
 		if(isset($dosubmit)){
-			//print_r($_POST);
-			//print_r($employee);exit;
 			$employee['appid'] = $appid;
 			Employee::updateEmployee($employee);
 			operation_tips('操作成功！','?mod=content&file=content&action=employee');
+		}
+		$id = intaval($_GET['id']);
+		if( $id>0 ){
+			$employee = Employee::getOne($id, $appid);
 		}
 		include_once parse_admin_tlp($file.'-'.$action,$mod);
 		break;

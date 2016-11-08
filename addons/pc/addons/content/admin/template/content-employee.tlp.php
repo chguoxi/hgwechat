@@ -31,8 +31,8 @@
                    <div class="admin-nav">
                         <h2>添加核心人物</h2>
                         <div class="nav">
-                        	<a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_list" class="hover">核心人物列表</a>
-                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=pc&file=content&action=employee_post" >增加核心人物</a>
+                        	<a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=content&file=content&action=employee" class="hover">核心人物列表</a>
+                            <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod=content&file=content&action=employee_post" >增加核心人物</a>
                             
                         </div>
                     </div>				
@@ -50,7 +50,7 @@
 						  <th width="13%">是否展示</th>
                           <th width="8%">操作</th>
                       </tr>
-                      {loop $data $r}
+                      {loop $employees $r}
                       <tr>
                           <td class="tc"><input name="ids[{$r['id']}]" class="common-checkbox" checked="checked" la="checkbox" value="{$r['id']}" type="checkbox"></td>
                           <td>{$r['id']}</td>
@@ -58,8 +58,9 @@
 						  <td>{php echo $r['gender']==1?'男':($r['gender']==2?'女':'未知');}</td>
 						  <td>{php echo $r['job_title']}</td>
 						  <td>{if $r['occupation_background']}{$r['occupation_background']}{else}-{/if}</td>
+						  <td>{php echo $r['degree']}</td>
 						  <td>{if $r['avatar']}<a href="{$r['avatar']}" target="_blank"><img src="{$r['avatar']}" style="width:50px; margin:8px 0px" /></a>{else}-{/if}</td>
-						  <td>{if $r['display']}是{/else}否{/if}</td>
+						  <td>{if $r['display']}是{else}否{/if}</td>
                           <td>
                           	  <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod={$mod}&file={$file}&action=employee_del&id={$r['id']}">删除</a>|
                           	  <a href="{__PW_PATH__}{__ADMIN_FILE__}?mod={$mod}&file={$file}&action=employee_edit={$r['openid']}">编辑</a>
