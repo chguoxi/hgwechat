@@ -37,6 +37,6 @@ class Employee {
 	}
 	
 	public static function getOne($id,$appid){
-		return Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mEmployeeTable. "WHERE `id`={$id}")." AND `appid`={$appid}";
+		return Mysql::fetchOne("SELECT * FROM ".DB_PRE.self::$mEmployeeTable. " WHERE `id`={$id}")." AND `appid`={$appid}";
 	}
 }
